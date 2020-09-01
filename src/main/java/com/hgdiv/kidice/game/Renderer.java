@@ -4,24 +4,12 @@ import com.hgdiv.kidice.engine.EngineUtils;
 import com.hgdiv.kidice.engine.Window;
 import com.hgdiv.kidice.engine.graph.Mesh;
 import com.hgdiv.kidice.engine.graph.ShaderProgram;
-import org.lwjgl.system.MemoryUtil;
 
 import java.io.File;
-import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
-import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
-import static org.lwjgl.opengl.GL15.glBindBuffer;
-import static org.lwjgl.opengl.GL15.glBufferData;
-import static org.lwjgl.opengl.GL15.glDeleteBuffers;
-import static org.lwjgl.opengl.GL15.glGenBuffers;
-import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 
 /**
@@ -79,6 +67,8 @@ public class Renderer {
 
         // Bind to the VAO
         glBindVertexArray(mesh.getVaoId());
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
 
         // Draw the vertices
         glDrawElements(GL_TRIANGLES, mesh.getVertexCount(), GL_UNSIGNED_INT, 0);

@@ -100,7 +100,7 @@ public class GameEngine implements Runnable {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException ire) {
-                ire.printStackTrace();
+//                ire.printStackTrace();
 
             }
         }
