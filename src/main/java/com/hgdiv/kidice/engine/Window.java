@@ -10,7 +10,9 @@ import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 
-
+/**
+ * The type Window.
+ */
 public class Window {
 
     private final String title;
@@ -20,6 +22,14 @@ public class Window {
     private long windowHandle;
     private boolean resized;
 
+    /**
+     * Instantiates a new Window.
+     *
+     * @param title  the title
+     * @param width  the width
+     * @param height the height
+     * @param vSync  the v sync
+     */
     public Window(String title, int width, int height, boolean vSync) {
         this.title = title;
         this.width = width;
@@ -28,6 +38,9 @@ public class Window {
         this.resized = false;
     }
 
+    /**
+     * Init.
+     */
     public void init() {
         // Error callback for standard out
         GLFWErrorCallback.createPrint(System.err).set();
@@ -86,54 +99,121 @@ public class Window {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     }
 
+    /**
+     * Sets clear color.
+     *
+     * @param r     the r
+     * @param g     the g
+     * @param b     the b
+     * @param alpha the alpha
+     */
     public void setClearColor(float r, float g, float b, float alpha) {
         glClearColor(r, g, b, alpha);
     }
 
+    /**
+     * Is key pressed boolean.
+     *
+     * @param keyCode the key code
+     * @return the boolean
+     */
     public boolean isKeyPressed(int keyCode) {
         return glfwGetKey(windowHandle, keyCode) == GLFW_PRESS;
     }
 
+    /**
+     * Window should close boolean.
+     *
+     * @return the boolean
+     */
     public boolean windowShouldClose() {
         return glfwWindowShouldClose(windowHandle);
     }
 
+    /**
+     * Gets height.
+     *
+     * @return the height
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * Sets height.
+     *
+     * @param height the height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
 
+    /**
+     * Gets width.
+     *
+     * @return the width
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Sets width.
+     *
+     * @param width the width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     * Isv sync boolean.
+     *
+     * @return the boolean
+     */
     public boolean isvSync() {
         return vSync;
     }
 
+    /**
+     * Sets sync.
+     *
+     * @param vSync the v sync
+     */
     public void setvSync(boolean vSync) {
         this.vSync = vSync;
     }
 
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Is resized boolean.
+     *
+     * @return the boolean
+     */
     public boolean isResized() {
         return resized;
     }
 
+    /**
+     * Sets resized.
+     *
+     * @param resized the resized
+     */
     public void setResized(boolean resized) {
         this.resized = resized;
     }
 
+    /**
+     * Update.
+     */
     public void update() {
         glfwSwapBuffers(windowHandle);
         glfwPollEvents();

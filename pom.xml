@@ -13,14 +13,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <built.by>HGDIV</built.by>
         <main.class>com.hgdiv.kidice.game.Main</main.class>
-        <!-- Versions -->
         <java.version>11</java.version>
         <mvn.complilerplug.version>3.8.1</mvn.complilerplug.version>
+        <lwjgl.version>3.2.3</lwjgl.version>
+        <joml.version>1.9.25</joml.version>
         <mvn.execplug.version>1.6.0</mvn.execplug.version>
         <mvn.jarplug.version>3.1.2</mvn.jarplug.version>
         <mvn.resplug.version>3.1.0</mvn.resplug.version>
-        <lwjgl.version>3.2.3</lwjgl.version>
-        <joml.version>1.9.25</joml.version>
     </properties>
 
 
@@ -40,8 +39,6 @@
             <artifactId>lwjgl-opengl</artifactId>
             <version>${lwjgl.version}</version>
         </dependency>
-
-        <!-- Natives -->
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>

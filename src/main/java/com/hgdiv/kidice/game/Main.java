@@ -3,11 +3,19 @@ package com.hgdiv.kidice.game;
 import com.hgdiv.kidice.engine.GameEngine;
 import com.hgdiv.kidice.engine.IGameLogic;
 
+/**
+ * The type Main.
+ */
 public class Main {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         try {
-            boolean vSync = false;
+            boolean vSync = true;
             IGameLogic gameLogic = new TestGame();
             GameEngine gameEngine = new GameEngine("GAME", 600, 400, vSync, gameLogic);
             gameEngine.run();

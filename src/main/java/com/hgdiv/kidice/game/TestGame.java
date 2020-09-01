@@ -7,11 +7,17 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
 import static org.lwjgl.opengl.GL11.glViewport;
 
+/**
+ * The type Test game.
+ */
 public class TestGame implements IGameLogic {
     private int direction = 0;
     private float color = 0.0f;
     private final Renderer renderer;
 
+    /**
+     * Instantiates a new Test game.
+     */
     public TestGame() {
         renderer = new Renderer();
     }
@@ -54,6 +60,12 @@ public class TestGame implements IGameLogic {
         }
         window.setClearColor(color, color, color, 0.0f);
         renderer.clear();
+
+    }
+
+    @Override
+    public void cleanup() {
+        renderer.cleanup();
 
     }
 }
