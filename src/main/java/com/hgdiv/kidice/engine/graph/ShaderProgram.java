@@ -5,7 +5,7 @@ import static org.lwjgl.opengl.GL20.*;
 /**
  * The type Shader program.
  */
-public class ShaderProg {
+public class ShaderProgram {
 
     private final int programId;
 
@@ -18,7 +18,7 @@ public class ShaderProg {
      *
      * @throws Exception the exception
      */
-    public ShaderProg() throws Exception {
+    public ShaderProgram() throws Exception {
         programId = glCreateProgram();
         if (programId == 0) {
             throw new Exception("Shader failed to start");
@@ -113,7 +113,7 @@ public class ShaderProg {
     }
 
     /**
-     * Cleanup calls {@code ShaderProg.unbind()} method. Then calls glDeleteProgram() on the
+     * Cleanup calls {@code ShaderProgram.unbind()} method. Then calls glDeleteProgram() on the
      * programId to erase the association totally.
      */
     public void cleanup() {

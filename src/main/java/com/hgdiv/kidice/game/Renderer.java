@@ -2,7 +2,7 @@ package com.hgdiv.kidice.game;
 
 import com.hgdiv.kidice.engine.EngineUtils;
 import com.hgdiv.kidice.engine.Window;
-import com.hgdiv.kidice.engine.graph.ShaderProg;
+import com.hgdiv.kidice.engine.graph.ShaderProgram;
 import org.lwjgl.system.MemoryUtil;
 
 import java.io.File;
@@ -34,7 +34,7 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
  */
 public class Renderer {
 
-    private ShaderProg shaderProgram;
+    private ShaderProgram shaderProgram;
     private int vaoId;
     private int vboId;
 
@@ -54,7 +54,8 @@ public class Renderer {
     public void init() throws Exception {
         File vertFile = new File("D:\\Develop\\Projects\\kid-ice\\src\\main\\resources\\shaders\\vertex.vs");
         File fragFile = new File("D:\\Develop\\Projects\\kid-ice\\src\\main\\resources\\shaders\\fragment.fs");
-        shaderProgram = new ShaderProg();
+
+        shaderProgram = new ShaderProgram();
         shaderProgram.createVertexShader(EngineUtils.loadResource(vertFile));
         shaderProgram.createFragmentShader(EngineUtils.loadResource(fragFile));
         shaderProgram.link();
