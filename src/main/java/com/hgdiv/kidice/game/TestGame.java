@@ -2,6 +2,7 @@ package com.hgdiv.kidice.game;
 
 import com.hgdiv.kidice.engine.IGameLogic;
 import com.hgdiv.kidice.engine.Window;
+import com.hgdiv.kidice.engine.graph.Mesh;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
@@ -11,9 +12,11 @@ import static org.lwjgl.opengl.GL11.glViewport;
  * The type Test game.
  */
 public class TestGame implements IGameLogic {
+
     private int direction = 0;
     private float color = 0.0f;
     private final Renderer renderer;
+    private Mesh mesh;
 
     /**
      * Instantiates a new Test game.
@@ -25,6 +28,15 @@ public class TestGame implements IGameLogic {
     @Override
     public void init() throws Exception {
         renderer.init();
+
+        float[] positions = new float[]{
+                -0.5f, 0.5f, 0.0f,
+                -0.5f, -0.5f, 0.0f,
+                0.5f, -0.5f, 0.0f,
+                0.5f, 0.5f, 0.0f,};
+        int[] indices = new int[]{
+                0, 1, 3, 3, 1, 2,};
+        mesh = new Mesh(positions, indices);
     }
 
     @Override
@@ -54,13 +66,14 @@ public class TestGame implements IGameLogic {
 
     @Override
     public void render(Window window) {
-        renderer.render(window);
+        window.setClearColor(color, color, color, 0.0f);
+        renderer.render(window,mesh);
 
     }
 
     @Override
     public void cleanup() {
         renderer.cleanup();
-
+        mesh.cleanUp();
     }
 }
