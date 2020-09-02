@@ -4,6 +4,7 @@ import com.hgdiv.kidice.engine.EngineUtils;
 import com.hgdiv.kidice.engine.Window;
 import com.hgdiv.kidice.engine.graph.Mesh;
 import com.hgdiv.kidice.engine.graph.ShaderProgram;
+import org.joml.Matrix4f;
 
 import java.io.File;
 
@@ -20,6 +21,16 @@ public class Renderer {
     private ShaderProgram shaderProgram;
 
     /**
+     * Field of View (Radians)
+     */
+    private static final float FOV = (float) Math.toRadians(60.0f);
+
+    private static final float ZNear = 0.01f;
+    private static final float ZFar = 1000.f;
+
+    private Matrix4f projectionMatrix;
+
+    /**
      * Instantiates a new Renderer.
      */
     public Renderer() {
@@ -32,7 +43,8 @@ public class Renderer {
      *
      * @throws Exception the exception
      */
-    public void init() throws Exception {
+    public void init(Window window) throws Exception {
+
         File vertFile = new File("D:\\Develop\\Projects\\kid-ice\\src\\main\\resources\\shaders\\vertex.vs");
         File fragFile = new File("D:\\Develop\\Projects\\kid-ice\\src\\main\\resources\\shaders\\fragment.fs");
 
@@ -40,6 +52,12 @@ public class Renderer {
         shaderProgram.createVertexShader(EngineUtils.loadResource(vertFile));
         shaderProgram.createFragmentShader(EngineUtils.loadResource(fragFile));
         shaderProgram.link();
+
+        //Projection Matrix create
+        float aspectRatio = (float) window.getWidth() / window.getHeight();
+        projectionMatrix = new Matrix4f().perspective(Renderer.FOV, aspectRatio,
+                Renderer.ZNear, Renderer.ZFar);
+        shaderProgram.createUniform("projectionMatrix");
 
     }
 
@@ -51,9 +69,10 @@ public class Renderer {
     }
 
     /**
-     * {@code Renderer.render(Mesh mesh) }
+     * {@code Renderer.render }
      *
-     * @param mesh
+     * @param mesh   the instance of Mesh to use in rendering
+     * @param window the window object to render to
      */
     public void render(Window window, Mesh mesh) {
         clear();
@@ -64,6 +83,7 @@ public class Renderer {
         }
 
         shaderProgram.bind();
+        shaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
         // Bind to the VAO
         glBindVertexArray(mesh.getVaoId());

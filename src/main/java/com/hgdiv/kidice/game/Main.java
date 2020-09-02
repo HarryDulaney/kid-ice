@@ -4,7 +4,7 @@ import com.hgdiv.kidice.engine.GameEngine;
 import com.hgdiv.kidice.engine.IGameLogic;
 
 /**
- * The type Main.
+ * {@code Main} is the application entry point.
  */
 public class Main {
 

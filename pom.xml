@@ -15,8 +15,8 @@
         <main.class>com.hgdiv.kidice.game.Main</main.class>
         <java.version>11</java.version>
         <mvn.complilerplug.version>3.8.1</mvn.complilerplug.version>
+        <joml.version>1.9.19</joml.version>
         <lwjgl.version>3.2.3</lwjgl.version>
-        <joml.version>1.9.25</joml.version>
         <mvn.execplug.version>1.6.0</mvn.execplug.version>
         <mvn.jarplug.version>3.1.2</mvn.jarplug.version>
         <mvn.resplug.version>3.1.0</mvn.resplug.version>
@@ -59,6 +59,11 @@
             <version>${lwjgl.version}</version>
             <classifier>${native.target}</classifier>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.joml</groupId>
+            <artifactId>joml</artifactId>
+            <version>${joml.version}</version>
         </dependency>
     </dependencies>
 

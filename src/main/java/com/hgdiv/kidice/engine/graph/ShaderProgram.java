@@ -1,5 +1,12 @@
 package com.hgdiv.kidice.engine.graph;
 
+import org.joml.Matrix4f;
+import org.lwjgl.system.MemoryStack;
+
+import java.nio.FloatBuffer;
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.lwjgl.opengl.GL20.*;
 
 /**
@@ -13,6 +20,8 @@ public class ShaderProgram {
 
     private int fragmentShaderId;
 
+    private final Map<String, Integer> uniforms;
+
     /**
      * Instantiates a new Shader program.
      *
@@ -23,6 +32,8 @@ public class ShaderProgram {
         if (programId == 0) {
             throw new Exception("Shader failed to start");
         }
+        uniforms = new HashMap<>();
+
     }
 
     /**
@@ -42,7 +53,7 @@ public class ShaderProgram {
      * @throws Exception the exception
      */
     public void createFragmentShader(String shaderCode) throws Exception {
-        fragmentShaderId = createShader(shaderCode,GL_FRAGMENT_SHADER);
+        fragmentShaderId = createShader(shaderCode, GL_FRAGMENT_SHADER);
     }
 
     /**
@@ -98,6 +109,31 @@ public class ShaderProgram {
     }
 
     /**
+     * Create uniform.
+     *
+     * @param uniformName the uniform name
+     * @throws Exception the exception
+     */
+    public void createUniform(String uniformName) throws Exception {
+        int uniformLocation = glGetUniformLocation(programId,
+                uniformName);
+        if (uniformLocation < 0) {
+            throw new Exception("Could not find uniform:" +
+                    uniformName);
+        }
+        uniforms.put(uniformName, uniformLocation);
+    }
+
+    public void setUniform(String uniformName, Matrix4f value) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            FloatBuffer floatBuffer = stack.mallocFloat(16);
+            value.get(floatBuffer);
+            glUniformMatrix4fv(uniforms.get(uniformName), false, floatBuffer);
+        }
+
+    }
+
+    /**
      * Bind the programId with glUseProgram()
      */
     public void bind() {
@@ -122,7 +158,6 @@ public class ShaderProgram {
             glDeleteProgram(programId);
         }
     }
-
 
 }
 

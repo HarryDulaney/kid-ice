@@ -21,6 +21,9 @@ import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 import static org.lwjgl.system.MemoryUtil.memAllocFloat;
 
+/**
+ * The type Mesh.
+ */
 public class Mesh {
 
 
@@ -34,6 +37,13 @@ public class Mesh {
 
     private final int vertexCount;
 
+    /**
+     * Instantiates a new Mesh.
+     *
+     * @param positions the positions
+     * @param colours   the colours
+     * @param indices   the indices
+     */
     public Mesh(float[] positions, float[] colours, int[] indices) {
         FloatBuffer posBuffer = null;
         FloatBuffer colourBuffer = null;
@@ -84,14 +94,27 @@ public class Mesh {
         }
     }
 
+    /**
+     * Gets vao id.
+     *
+     * @return the vao id
+     */
     public int getVaoId() {
         return vaoId;
     }
 
+    /**
+     * Gets vertex count.
+     *
+     * @return the vertex count
+     */
     public int getVertexCount() {
         return vertexCount;
     }
 
+    /**
+     * Clean up.
+     */
     public void cleanUp() {
         glDisableVertexAttribArray(0);
 
