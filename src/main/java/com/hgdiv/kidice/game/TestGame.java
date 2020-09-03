@@ -7,8 +7,6 @@ import com.hgdiv.kidice.engine.graph.Mesh;
 import com.hgdiv.kidice.engine.graph.Texture;
 import org.joml.Vector3f;
 
-import java.io.File;
-
 import static org.lwjgl.glfw.GLFW.*;
 
 /**
@@ -134,8 +132,8 @@ public class TestGame implements IGameLogic {
                 16, 18, 19, 17, 16, 19,
                 // Back face
                 4, 6, 7, 5, 4, 7,};
-        File file = new File("D:\\Develop\\Projects\\kid-ice\\src\\main\\resources\\textures\\grassblock.png");
-        Texture texture = new Texture(file);
+
+        Texture texture = new Texture("src/main/resources/textures/grassblock.png");
         Mesh mesh = new Mesh(positions, textCoords, indices, texture);
         GameItem gameItem = new GameItem(mesh);
         gameItem.setPosition(0, 0, -2);

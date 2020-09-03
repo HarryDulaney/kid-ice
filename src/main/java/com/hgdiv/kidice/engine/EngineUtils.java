@@ -8,8 +8,9 @@ import java.util.Scanner;
 
 public class EngineUtils {
 
-    public static String loadResource(File filePath) throws Exception {
+    public static String loadResource(String filePath) throws Exception {
         String result;
+
         try (InputStream in = new FileInputStream(filePath);
              Scanner input = new Scanner(in, StandardCharsets.UTF_8)) {
             result = input.useDelimiter("\\A").next();

@@ -1,9 +1,9 @@
 package com.hgdiv.kidice.engine.graph;
 
-import java.io.File;
+import org.lwjgl.system.MemoryStack;
+
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import org.lwjgl.system.MemoryStack;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
@@ -13,7 +13,7 @@ public class Texture {
 
     private final int id;
 
-    public Texture(File fileName) throws Exception {
+    public Texture(String fileName) throws Exception {
         this(loadTexture(fileName));
     }
 
@@ -29,7 +29,7 @@ public class Texture {
         return id;
     }
 
-    private static int loadTexture(File fileName) throws Exception {
+    private static int loadTexture(String fileName) throws Exception {
         int width;
         int height;
         ByteBuffer buf;
@@ -39,7 +39,7 @@ public class Texture {
             IntBuffer h = stack.mallocInt(1);
             IntBuffer channels = stack.mallocInt(1);
 
-            buf = stbi_load(fileName.toString(), w, h, channels, 4);
+            buf = stbi_load(fileName, w, h, channels, 4);
             if (buf == null) {
                 throw new Exception("Image file [" + fileName  + "] not loaded: " + stbi_failure_reason());
             }

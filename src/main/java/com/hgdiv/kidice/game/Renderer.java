@@ -54,12 +54,9 @@ public class Renderer {
      */
     public void init(Window window) throws Exception {
 
-        File vertFile = new File("D:\\Develop\\Projects\\kid-ice\\src\\main\\resources\\shaders\\vertex.vs");
-        File fragFile = new File("D:\\Develop\\Projects\\kid-ice\\src\\main\\resources\\shaders\\fragment.fs");
-
         shaderProgram = new ShaderProgram();
-        shaderProgram.createVertexShader(EngineUtils.loadResource(vertFile));
-        shaderProgram.createFragmentShader(EngineUtils.loadResource(fragFile));
+        shaderProgram.createVertexShader(EngineUtils.loadResource("src/main/resources/shaders/vertex.vs"));
+        shaderProgram.createFragmentShader(EngineUtils.loadResource("src/main/resources/shaders/fragment.fs"));
         shaderProgram.link();
         shaderProgram.createUniform("texture_sampler");
 
