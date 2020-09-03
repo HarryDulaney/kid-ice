@@ -3,24 +3,18 @@ package com.hgdiv.kidice.game;
 import com.hgdiv.kidice.engine.EngineUtils;
 import com.hgdiv.kidice.engine.GameItem;
 import com.hgdiv.kidice.engine.Window;
+import com.hgdiv.kidice.engine.graph.Camera;
 import com.hgdiv.kidice.engine.graph.ShaderProgram;
 import com.hgdiv.kidice.engine.graph.Transformation;
 import org.joml.Matrix4f;
 
-import java.io.File;
-
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 
 /**
  * The type Renderer.
  */
 public class Renderer {
-
-    private ShaderProgram shaderProgram;
-    private Transformation transformation;
 
     /**
      * Field of View (Radians)
@@ -29,7 +23,8 @@ public class Renderer {
     private static final float ZNear = 0.01f;
     private static final float ZFar = 1000.f;
 
-    private Matrix4f projectionMatrix;
+    private ShaderProgram shaderProgram;
+    private final Transformation transformation;
 
     /**
      * Instantiates a new Renderer.
@@ -58,16 +53,15 @@ public class Renderer {
         shaderProgram.createVertexShader(EngineUtils.loadResource("src/main/resources/shaders/vertex.vs"));
         shaderProgram.createFragmentShader(EngineUtils.loadResource("src/main/resources/shaders/fragment.fs"));
         shaderProgram.link();
-        shaderProgram.createUniform("texture_sampler");
 
         //Projection Matrix create
         float aspectRatio = (float) window.getWidth() / window.getHeight();
-        projectionMatrix = new Matrix4f().perspective(Renderer.FOV, aspectRatio,
+        Matrix4f projectionMatrix = new Matrix4f().perspective(Renderer.FOV, aspectRatio,
                 Renderer.ZNear, Renderer.ZFar);
         shaderProgram.createUniform("projectionMatrix");
-        shaderProgram.createUniform("worldMatrix");
+        shaderProgram.createUniform("modelViewMatrix");
+        shaderProgram.createUniform("texture_sampler");
 
-        window.setClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
     }
 
@@ -84,7 +78,7 @@ public class Renderer {
      * @param gameItems an array of GameItem's to render
      * @param window    the window object to render to
      */
-    public void render(Window window, GameItem[] gameItems) {
+    public void render(Window window, Camera camera, GameItem[] gameItems) {
         clear();
 
         if (window.isResized()) {
@@ -97,21 +91,20 @@ public class Renderer {
         // Update projection Matrix
         Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV, window.getWidth(), window.getHeight(), ZNear, ZFar);
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
-        shaderProgram.setUniform("texture_sampler", 0);
 
+        // Update view Matrix
+        Matrix4f viewMatrix = transformation.getViewMatrix(camera);
+
+        shaderProgram.setUniform("texture_sampler", 0);
         // Render each gameItem
         for (GameItem gameItem : gameItems) {
-            // Set world matrix for this item
-            Matrix4f worldMatrix =
-                    transformation.getWorldMatrix(
-                            gameItem.getPosition(),
-                            gameItem.getRotation(),
-                            gameItem.getScale());
-            shaderProgram.setUniform("worldMatrix", worldMatrix);
-
+            // Set model view matrix for this item
+            Matrix4f modelViewMatrix = transformation.getModelViewMatrix(gameItem, viewMatrix);
+            shaderProgram.setUniform("modelViewMatrix", modelViewMatrix);
             // Render the mes for this game item
             gameItem.getMesh().render();
         }
+
         shaderProgram.unbind();
     }
 

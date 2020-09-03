@@ -19,6 +19,11 @@ public class Window {
     private int height;
     private int width;
     private boolean vSync;
+
+    public long getWindowHandle() {
+        return windowHandle;
+    }
+
     private long windowHandle;
     private boolean resized;
 

@@ -8,10 +8,9 @@
     <version>0.1</version>
     <packaging>pom</packaging>
 
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <built.by>HGDIV</built.by>
+        <built.by>Harry Dulaney IV</built.by>
         <java.version>11</java.version>
         <mvn.comp-plugin.version>3.8.1</mvn.comp-plugin.version>
         <joml.version>1.9.19</joml.version>
@@ -86,13 +85,13 @@
     <build>
         <resources>
             <resource>
-                <directory>src/main/resources/</directory>
+                <directory>src/main/resources</directory>
             </resource>
             <resource>
-                <directory>src/main/resources/textures/</directory>
+                <directory>src/main/resources/textures</directory>
             </resource>
             <resource>
-                <directory>src/main/resources/shaders/</directory>
+                <directory>src/main/resources/shaders</directory>
             </resource>
         </resources>
         <plugins>
