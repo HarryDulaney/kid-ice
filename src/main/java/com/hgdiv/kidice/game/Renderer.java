@@ -61,6 +61,7 @@ public class Renderer {
         shaderProgram.createVertexShader(EngineUtils.loadResource(vertFile));
         shaderProgram.createFragmentShader(EngineUtils.loadResource(fragFile));
         shaderProgram.link();
+        shaderProgram.createUniform("texture_sampler");
 
         //Projection Matrix create
         float aspectRatio = (float) window.getWidth() / window.getHeight();
@@ -99,6 +100,7 @@ public class Renderer {
         // Update projection Matrix
         Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV, window.getWidth(), window.getHeight(), ZNear, ZFar);
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
+        shaderProgram.setUniform("texture_sampler", 0);
 
         // Render each gameItem
         for (GameItem gameItem : gameItems) {

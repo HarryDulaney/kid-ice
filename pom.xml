@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hgdiv.game</groupId>
+    <groupId>com.hgdiv</groupId>
     <artifactId>kid-ice</artifactId>
     <version>0.1</version>
     <packaging>pom</packaging>
@@ -20,6 +20,7 @@
         <mvn.execplug.version>1.6.0</mvn.execplug.version>
         <mvn.jarplug.version>3.1.2</mvn.jarplug.version>
         <mvn.resplug.version>3.1.0</mvn.resplug.version>
+        <pngdecoder.version>1.0</pngdecoder.version>
     </properties>
 
 
@@ -41,6 +42,23 @@
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-stb</artifactId>
+            <version>${lwjgl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.joml</groupId>
+            <artifactId>joml</artifactId>
+            <version>${joml.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.l33tlabs.twl</groupId>
+            <artifactId>pngdecoder</artifactId>
+            <version>${pngdecoder.version}</version>
+        </dependency>
+
+        <!-- Natives -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
             <version>${lwjgl.version}</version>
             <classifier>${native.target}</classifier>
@@ -61,9 +79,11 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.joml</groupId>
-            <artifactId>joml</artifactId>
-            <version>${joml.version}</version>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-stb</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>${native.target}</classifier>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
