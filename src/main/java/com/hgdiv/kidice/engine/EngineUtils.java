@@ -1,9 +1,9 @@
 package com.hgdiv.kidice.engine;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class EngineUtils {
@@ -16,5 +16,16 @@ public class EngineUtils {
 
         }
         return result;
+    }
+
+    public static List<String> readAllLines(String fileName) throws Exception {
+        List<String> list = new ArrayList<>();
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                list.add(line);
+            }
+        }
+        return list;
     }
 }

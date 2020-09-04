@@ -1,6 +1,7 @@
 package com.hgdiv.kidice.engine.graph;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.FloatBuffer;
@@ -30,11 +31,46 @@ public class ShaderProgram {
     public ShaderProgram() throws Exception {
         programId = glCreateProgram();
         if (programId == 0) {
-            throw new Exception("Shader failed to start");
+            throw new Exception("Shader creation failed");
         }
         uniforms = new HashMap<>();
 
     }
+
+    /**
+     * Create uniform.
+     *
+     * @param uniformName the uniform name
+     * @throws Exception the exception
+     */
+    public void createUniform(String uniformName) throws Exception {
+        int uniformLocation = glGetUniformLocation(programId,
+                uniformName);
+        if (uniformLocation < 0) {
+            throw new Exception("Could not find uniform:" +
+                    uniformName);
+        }
+        uniforms.put(uniformName, uniformLocation);
+    }
+
+    public void setUniform(String uniformName, Matrix4f value) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            FloatBuffer floatBuffer = stack.mallocFloat(16);
+            value.get(floatBuffer);
+            glUniformMatrix4fv(uniforms.get(uniformName), false, floatBuffer);
+        }
+
+    }
+
+    public void setUniform(String uniformName, Vector3f value) {
+        glUniform3f(uniforms.get(uniformName), value.x, value.y, value.z);
+    }
+
+
+    public void setUniform(String uniformName, int value) {
+        glUniform1i(uniforms.get(uniformName), value);
+    }
+
 
     /**
      * Create vertex shader.
@@ -106,34 +142,6 @@ public class ShaderProgram {
             System.err.println("Warning validating Shader code: " + glGetProgramInfoLog(programId, 1024));
         }
 
-    }
-
-    /**
-     * Create uniform.
-     *
-     * @param uniformName the uniform name
-     * @throws Exception the exception
-     */
-    public void createUniform(String uniformName) throws Exception {
-        int uniformLocation = glGetUniformLocation(programId,
-                uniformName);
-        if (uniformLocation < 0) {
-            throw new Exception("Could not find uniform:" +
-                    uniformName);
-        }
-        uniforms.put(uniformName, uniformLocation);
-    }
-
-    public void setUniform(String uniformName, Matrix4f value) {
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            FloatBuffer floatBuffer = stack.mallocFloat(16);
-            value.get(floatBuffer);
-            glUniformMatrix4fv(uniforms.get(uniformName), false, floatBuffer);
-        }
-
-    }
-    public void setUniform(String uniformName, int value) {
-        glUniform1i(uniforms.get(uniformName), value);
     }
 
     /**

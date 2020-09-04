@@ -4,6 +4,7 @@ import com.hgdiv.kidice.engine.EngineUtils;
 import com.hgdiv.kidice.engine.GameItem;
 import com.hgdiv.kidice.engine.Window;
 import com.hgdiv.kidice.engine.graph.Camera;
+import com.hgdiv.kidice.engine.graph.Mesh;
 import com.hgdiv.kidice.engine.graph.ShaderProgram;
 import com.hgdiv.kidice.engine.graph.Transformation;
 import org.joml.Matrix4f;
@@ -26,6 +27,7 @@ public class Renderer {
     private ShaderProgram shaderProgram;
     private final Transformation transformation;
 
+
     /**
      * Instantiates a new Renderer.
      */
@@ -43,7 +45,6 @@ public class Renderer {
      * <p> - Load Vertex Shader /  Load Fragment Shader </p>
      * <p> - link() ShaderProgram </p>
      * <p> - Instantiate the projectionMatrix, account for current window's aspect ratio </p>
-     * <p> - Create uniform </p>
      *
      * @throws Exception the exception IOException, FileNotFoundException
      */
@@ -60,6 +61,10 @@ public class Renderer {
                 Renderer.ZNear, Renderer.ZFar);
         shaderProgram.createUniform("projectionMatrix");
         shaderProgram.createUniform("modelViewMatrix");
+        shaderProgram.createUniform("color");
+
+
+        shaderProgram.createUniform("useColor");
         shaderProgram.createUniform("texture_sampler");
 
 
@@ -98,11 +103,13 @@ public class Renderer {
         shaderProgram.setUniform("texture_sampler", 0);
         // Render each gameItem
         for (GameItem gameItem : gameItems) {
+            Mesh mesh = gameItem.getMesh();
             // Set model view matrix for this item
             Matrix4f modelViewMatrix = transformation.getModelViewMatrix(gameItem, viewMatrix);
             shaderProgram.setUniform("modelViewMatrix", modelViewMatrix);
-            // Render the mes for this game item
-            gameItem.getMesh().render();
+            shaderProgram.setUniform("color", mesh.getColor());
+            shaderProgram.setUniform("useColor", mesh.isTextured() ? 0 : 1);
+            mesh.render();
         }
 
         shaderProgram.unbind();
