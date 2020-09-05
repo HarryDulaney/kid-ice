@@ -44,9 +44,10 @@ public class TestGame implements IGameLogic {
     public void init(Window window) throws Exception {
         renderer.init(window);
 //        Mesh mesh = OBJLoader.loadMesh("src/main/resources/models/bunny.obj");
-        Mesh mesh = OBJLoader.loadMesh("src/main/resources/models/cartoonGuy.obj");
-//        Texture texture = new Texture("src/main/resources/textures/grassblock.png");
-//        mesh.setTexture(texture);
+          Mesh mesh = OBJLoader.loadMesh("src/main/resources/models/cube.obj");
+//        Mesh mesh = OBJLoader.loadMesh("src/main/resources/models/cartoonGuy.obj");
+        Texture texture = new Texture("src/main/resources/textures/grassblock.png");
+        mesh.setTexture(texture);
         GameItem gameItem = new GameItem(mesh);
         gameItem.setScale(0.5f);
         gameItem.setPosition(0, 0, -2);
@@ -56,19 +57,19 @@ public class TestGame implements IGameLogic {
     @Override
     public void input(Window window, MouseInput mouseInput) {
         cameraInc.set(0, 0, 0);
-        if (window.isKeyPressed(GLFW_KEY_W)) {
+        if (window.isKeyPressed(GLFW_KEY_DOWN)) {
             cameraInc.z = -1;
-        } else if (window.isKeyPressed(GLFW_KEY_S)) {
+        } else if (window.isKeyPressed(GLFW_KEY_UP)) {
             cameraInc.z = 1;
         }
-        if (window.isKeyPressed(GLFW_KEY_A)) {
+        if (window.isKeyPressed(GLFW_KEY_RIGHT)) {
             cameraInc.x = -1;
-        } else if (window.isKeyPressed(GLFW_KEY_D)) {
+        } else if (window.isKeyPressed(GLFW_KEY_LEFT)) {
             cameraInc.x = 1;
         }
-        if (window.isKeyPressed(GLFW_KEY_Z)) {
+        if (window.isKeyPressed(GLFW_KEY_PAGE_UP)) {
             cameraInc.y = -1;
-        } else if (window.isKeyPressed(GLFW_KEY_X)) {
+        } else if (window.isKeyPressed(GLFW_KEY_PAGE_DOWN)) {
             cameraInc.y = 1;
         }
     }
