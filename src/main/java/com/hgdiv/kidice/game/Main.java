@@ -17,7 +17,7 @@ public class Main {
         try {
             boolean vSync = true;
             IGameLogic gameLogic = new TestGame();
-            GameEngine gameEngine = new GameEngine("GAME", 600, 400, vSync, gameLogic);
+            GameEngine gameEngine = new GameEngine("KID-ICE", 800, 600, vSync, gameLogic);
             gameEngine.run();
 
         }catch (Exception ex) {
