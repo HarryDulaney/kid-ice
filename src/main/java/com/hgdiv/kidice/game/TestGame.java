@@ -44,14 +44,29 @@ public class TestGame implements IGameLogic {
     public void init(Window window) throws Exception {
         renderer.init(window);
 //        Mesh mesh = OBJLoader.loadMesh("src/main/resources/models/bunny.obj");
-          Mesh mesh = OBJLoader.loadMesh("src/main/resources/models/cube.obj");
+        Mesh mesh = OBJLoader.loadMesh("src/main/resources/models/cube.obj");
 //        Mesh mesh = OBJLoader.loadMesh("src/main/resources/models/cartoonGuy.obj");
         Texture texture = new Texture("src/main/resources/textures/grassblock.png");
         mesh.setTexture(texture);
-        GameItem gameItem = new GameItem(mesh);
-        gameItem.setScale(0.5f);
-        gameItem.setPosition(0, 0, -2);
-        gameItems = new GameItem[]{gameItem};
+        GameItem gameItem1 = new GameItem(mesh);
+        gameItem1.setScale(0.5f);
+        gameItem1.setPosition(0, 0, -2);
+        GameItem gameItem2 = new GameItem(mesh);
+        gameItem2.setScale(0.5f);
+        gameItem2.setPosition(0, 0, 2);
+        GameItem gameItem3 = new GameItem(mesh);
+        gameItem3.setScale(0.5f);
+        gameItem3.setPosition(-2, 0, 0);
+        GameItem gameItem4 = new GameItem(mesh);
+        gameItem4.setScale(0.5f);
+        gameItem4.setPosition(3, -3, 4);
+        GameItem gameItem5 = new GameItem(mesh);
+        gameItem5.setScale(0.5f);
+        gameItem5.setPosition(2, 2, 0);
+        GameItem gameItem6 = new GameItem(mesh);
+        gameItem6.setScale(0.5f);
+        gameItem6.setPosition(4, 5, 8);
+        gameItems = new GameItem[]{gameItem1, gameItem2, gameItem3, gameItem4, gameItem5, gameItem6};
     }
 
     @Override
